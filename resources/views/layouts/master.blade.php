@@ -101,7 +101,7 @@
     <script src="{{ asset('public/admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{asset('public/admin/js/sb-admin-2.min.js')}}"></script>
-    <script src="{{ asset('public/admin/js/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('public/admin/js/sweetalert2.js') }}"></script>
 
     <script>
         $(document).ready(function() {

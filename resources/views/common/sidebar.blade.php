@@ -17,4 +17,22 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
+
+    <li class="nav-item @if(request()->segment(1) == "standard") active @endif">
+        <a class="nav-link" href="{{ route('standard.index') }}">
+            <i class="nav-icon fas fa-users"></i>
+            <span>Standard</span></a>
+    </li>
+
+    {{-- <li class="nav-item @if(request()->segment(1) == "category") active @endif">
+        <a class="nav-link" href="{{ route('category.index') }}">
+            <i class="nav-icon fas fa-users"></i>
+            <span>Category</span></a>
+    </li> --}}
+
+    <li class="nav-item @if(request()->segment(1) == "student") active @endif">
+        <a class="nav-link" href="{{ route('category.index') }}">
+            <i class="nav-icon fas fa-users"></i>
+            <span>Student</span></a>
+    </li>
 </ul>
