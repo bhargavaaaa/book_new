@@ -31,7 +31,7 @@
     </li> --}}
 
     <li class="nav-item @if(request()->segment(1) == "student") active @endif">
-        <a class="nav-link" href="{{ route('category.index') }}">
+        {{-- <a class="nav-link" href="{{ route('category.index') }}"> --}}
             <i class="nav-icon fas fa-users"></i>
             <span>Student</span></a>
     </li>
