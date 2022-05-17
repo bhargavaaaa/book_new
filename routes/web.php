@@ -27,4 +27,7 @@ Route::group(["middleware" => "auth"], function() {
     Route::get('profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
     Route::post('profile', [App\Http\Controllers\HomeController::class, 'profileUpdate'])->name('profile.update');
     Route::post('profile/password', [App\Http\Controllers\HomeController::class, 'passwordUpdate'])->name('userpassword.change');
+
+    /** Bill make */
+    Route::get('make-bill', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice.index');
 });
