@@ -26,6 +26,7 @@
     <link href="{{ asset('public/admin/css/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="{{asset('public/admin/css/style.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"/>
 </head>
 
 <body id="page-top">
@@ -103,7 +104,7 @@
     <script src="{{ asset('public/admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{asset('public/admin/js/sb-admin-2.min.js')}}"></script>
     <script src="{{ asset('public/admin/js/sweetalert2/sweetalert2.all.min.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
