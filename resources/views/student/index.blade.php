@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('page_title'){{ 'Standard - '.config("app.name") }}@endsection
+@section('page_title'){{ 'Student - '.config("app.name") }}@endsection
 @section('content')
 
 <div class="content-header">
@@ -33,9 +33,21 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+                        <div>
+                            <form action="{{ route('student.import') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="file" class="e">
+                                <br>
+                                @error('file')
+                                  <div>{{ $message }}</div>
+                                @enderror
+                                <button class="btn btn-success">Import Student Data</button>
+                            </form>
+                            <a class="btn btn-warning" href="{{ route('student.export') }}">Export Student Data</a>
+                        </div>
                         {{-- <h3 class="card-title">{{ $moduleName ?? '' }} Details</h3> --}}
                         <div class="card-tools">
-                            <a href="{{ route('standard.create') }}"><button class="btn btn-primary" style="float:right;"><i class="fa fa-plus"></i> New</button></a>
+                            <a href="{{ route('student.create') }}"><button class="btn btn-primary" style="float:right;"><i class="fa fa-plus"></i> New</button></a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -44,6 +56,7 @@
                             <thead>
                                 <tr>
                                     <th>Sr. No.</th>
+                                    <th>Student</th>
                                     <th>Standard</th>
                                     <th>Action</th>
                                 </tr>
@@ -75,7 +88,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-            "url": "{{ route('standard.getData') }}",
+            "url": "{{ route('student.getData') }}",
             "dataType": "json",
             "type": "GET",
         },
@@ -88,6 +101,10 @@
                 data: 'name',
             },
             {
+                data: 'standard.name',
+                name: 'name'
+            },
+            {
                 data: 'action',
                 orderable: false,
                 searchable: false
@@ -95,18 +112,18 @@
         ],
     });
 
-    // $(document).on('click', '.delete', function(e) {
+    //  $(document).on('click', '#activate', function(e) {
     //     e.preventDefault();
     //     var linkURL = $(this).attr("href");
     //     console.log(linkURL);
     //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         icon: 'warning',
+    //         title: 'Are you sure want to Activate?',
+    //         text: "As that can be undone by doing reverse.",
+    //         icon: 'success',
     //         showCancelButton: true,
     //         confirmButtonColor: '#3085d6',
     //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
+    //         confirmButtonText: 'Yes'
     //     }).then((result) => {
     //         if (result.value) {
     //             window.location.href = linkURL;

@@ -31,8 +31,14 @@
     </li> --}}
 
     <li class="nav-item @if(request()->segment(1) == "student") active @endif">
-        {{-- <a class="nav-link" href="{{ route('category.index') }}"> --}}
+        <a class="nav-link" href="{{ route('student.index') }}">
             <i class="nav-icon fas fa-users"></i>
             <span>Student</span></a>
+    </li>
+
+    <li class="nav-item @if(request()->segment(1) == "book") active @endif">
+        <a class="nav-link" href="{{ route('book.index') }}">
+            <i class="nav-icon fas fa-book"></i>
+            <span>Books</span></a>
     </li>
 </ul>

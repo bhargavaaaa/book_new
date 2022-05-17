@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('page_title'){{ 'Standard - '.config("app.name") }}@endsection
+@section('page_title'){{ 'Student - '.config("app.name") }}@endsection
 @section('content')
 
 <div class="content-header">
@@ -35,7 +35,7 @@
                     <div class="card-header">
                         {{-- <h3 class="card-title">{{ $moduleName ?? '' }} Details</h3> --}}
                         <div class="card-tools">
-                            <a href="{{ route('standard.create') }}"><button class="btn btn-primary" style="float:right;"><i class="fa fa-plus"></i> New</button></a>
+                            <a href="{{ route('book.create') }}"><button class="btn btn-primary" style="float:right;"><i class="fa fa-plus"></i> New</button></a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -44,8 +44,11 @@
                             <thead>
                                 <tr>
                                     <th>Sr. No.</th>
-                                    <th>Standard</th>
+                                    <th>Book Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
                                     <th>Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,7 +78,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-            "url": "{{ route('standard.getData') }}",
+            "url": "{{ route('book.getData') }}",
             "dataType": "json",
             "type": "GET",
         },
@@ -88,6 +91,12 @@
                 data: 'name',
             },
             {
+                data: 'price',
+            },
+            {
+                data: 'qty',
+            },
+            {
                 data: 'action',
                 orderable: false,
                 searchable: false
@@ -95,18 +104,18 @@
         ],
     });
 
-    // $(document).on('click', '.delete', function(e) {
+    //  $(document).on('click', '#activate', function(e) {
     //     e.preventDefault();
     //     var linkURL = $(this).attr("href");
     //     console.log(linkURL);
     //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         icon: 'warning',
+    //         title: 'Are you sure want to Activate?',
+    //         text: "As that can be undone by doing reverse.",
+    //         icon: 'success',
     //         showCancelButton: true,
     //         confirmButtonColor: '#3085d6',
     //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
+    //         confirmButtonText: 'Yes'
     //     }).then((result) => {
     //         if (result.value) {
     //             window.location.href = linkURL;

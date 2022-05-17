@@ -25,6 +25,7 @@
     <link href="{{ asset('public/admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('public/admin/css/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="{{asset('public/admin/css/style.css')}}" rel="stylesheet">
 </head>
 
 <body id="page-top">

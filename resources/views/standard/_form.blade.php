@@ -24,18 +24,18 @@
             <div class="col-12 col-lg order-1 order-lg-0">
                 <div class="card mb-5">
                     <div class="card-header">
-                        <h3 class="card-title">{{ $moduleName }} Create</h3>
+                        <h3 class="card-title">{{ $moduleName }} Edit</h3>
                         <div class="card-tools">
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <form action="{{ route('standard.store') }}" method="POST" enctype="multipart/form-data" id="form">
+                        <form action="{{ route('standard.update', encrypt($standard->id)) }}" method="POST" enctype="multipart/form-data" id="form">
                             @csrf()
                             <div class="row g-3">
                                 <div class="col-md-6 mb-3 col-sm-12">
                                     <label class="form-label">Standard <span class="requride_cls">*</span></label>
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Name"
-                                        value="{{ old('name') }}" />
+                                        value="{{ old('name', $standard->name) }}" />
                                     @error('name')
                                         <span class="error">
                                             <strong>{{ $message }}</strong>

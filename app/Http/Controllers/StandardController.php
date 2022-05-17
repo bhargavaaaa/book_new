@@ -23,16 +23,18 @@ class StandardController extends Controller
         $standard = Standard::select();
         $datatables = datatables()->eloquent($standard)
         ->addColumn('action', function($row) {
+            $editUrl = route('standard.edit', encrypt($row->id));
             $deleteUrl = route('standard.delete', encrypt($row->id));
-            $changeStatus = route('standard.changeStatus', encrypt($row->id));
+            // $changeStatus = route('standard.changeStatus', encrypt($row->id));
             $action = '';
 
+            $action .= "<a href='" . $editUrl . "' class='btn btn-warning btn-xs'><i class='fas fa-pencil-alt'></i> Edit</a>";
             $action .= " <a id='delete' href='". $deleteUrl ."' class='btn btn-danger btn-xs delete'><i class='fa fa-trash'></i> Delete</a>";
-            if ($row->is_active == '0') {
-                $action .= " <a id='activate' href='". $changeStatus ."' class='btn btn-success btn-xs activeUser'><i class='fa fa-check'></i> Activate</a>";
-            } else {
-                $action .= " <a id='deactivate' href='". $changeStatus ."' class='btn btn-danger btn-xs inactiveUser'><i class='fa fa-times'></i> Deactivate</a>";
-            }
+            // if ($row->is_active == '0') {
+            //     $action .= " <a id='activate' href='". $changeStatus ."' class='btn btn-success btn-xs activeUser'><i class='fa fa-check'></i> Activate</a>";
+            // } else {
+            //     $action .= " <a id='deactivate' href='". $changeStatus ."' class='btn btn-danger btn-xs inactiveUser'><i class='fa fa-times'></i> Deactivate</a>";
+            // }
             return $action;
 
         })
@@ -64,6 +66,25 @@ class StandardController extends Controller
         }
 
         return redirect($this->route)->with("details_success", "Standard Added Successfully.");
+    }
+
+    public function edit($id)
+    {
+        $moduleName = $this->moduleName;
+        $standard = Standard::find(decrypt($id));
+        return view($this->view . '/_form', compact('moduleName','standard'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $standard = Standard::find(decrypt($id));
+        $standard->update(['name' => $request->name]);
+
+        return redirect($this->route)->with("details_success", "Standard Update Successfully.");
     }
 
     public function delete($id)
