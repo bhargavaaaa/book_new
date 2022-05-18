@@ -45,7 +45,6 @@
                                         </label>
                                         <select class="select2 select2bs4 form-control" id="standard" name="standard[]"
                                             multiple>
-                                            <option value="">Select</option>
                                             @foreach ($standards as $standard)
                                                 <option value="{{ $standard->id }}"
                                                     {{ in_array($standard->id, $standard_id) ? 'selected' : '' }}>
@@ -113,6 +112,23 @@
                                                 class="requride_cls"><strong>{{ $errors->first('discount_type') }}</strong></span>
                                         @endif
                                     </div>
+
+                                    <div class="col-md-5 mb-3 col-sm-12">
+                                        <label for="discount_type">
+                                            Book status <span class="requride_cls">*</span>
+                                        </label>
+                                        <div class="radio">
+                                            <label for="in_store"><input type="radio" name="book_status" id="in_store"
+                                                    value="1" {{ $book->book_status == 1 ? 'checked' : '' }}>Available in store</label>
+                                            <label for="pending" class="ml-2"><input type="radio" name="book_status" id="pending"
+                                                    value="0" {{ $book->book_status == 0 ? 'checked' : '' }}>Yet to come</label>
+                                        </div>
+                                        @if ($errors->has('book_status'))
+                                            <span
+                                                class="requride_cls"><strong>{{ $errors->first('book_status') }}</strong></span>
+                                        @endif
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -130,7 +146,10 @@
 @section('footer_script')
     <script>
         $(document).ready(() => {
-            $('select').select2();
+            $('select').select2({
+                placeholder: "Select a standard",
+                allowClear: true
+            });
         });
     </script>
 @endsection

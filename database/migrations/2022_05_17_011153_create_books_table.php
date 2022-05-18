@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->bigInteger('qty');
             $table->decimal('discount', 10, 2)->default(0.00);
             $table->boolean('discount_type')->comment('0-amount, 1-percentage');
-
+            $table->boolean('book_status')->comment('0-pending, 1=in store')->default(false);
             $table->timestamps();
         });
     }

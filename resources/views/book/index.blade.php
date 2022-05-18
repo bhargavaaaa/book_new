@@ -47,8 +47,8 @@
                                     <th>Book Name</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
+                                    <th>Available</th>
                                     <th>Action</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -95,6 +95,9 @@
             },
             {
                 data: 'qty',
+            },
+            {
+                data: 'book_status',
             },
             {
                 data: 'action',

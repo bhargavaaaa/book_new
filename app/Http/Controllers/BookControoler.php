@@ -34,7 +34,14 @@ class BookControoler extends Controller
             return $action;
 
         })
-        ->rawColumns(['action'])
+        ->addColumn('book_status', function($row) {
+            if($row->book_status == 1) {
+                return "In store";
+            } else {
+                return "Yet to come";
+            }
+        })
+        ->rawColumns(['action', 'book_status'])
         ->addIndexColumn()
         ->make(true);
 
@@ -56,7 +63,8 @@ class BookControoler extends Controller
             'price' => 'required',
             'qty' => 'required',
             'discount' => 'required',
-            'discount_type' => 'required'
+            'discount_type' => 'required',
+            'book_status' => 'required'
         ]);
 
         if($validate) {
@@ -65,7 +73,9 @@ class BookControoler extends Controller
                 'price' => $request->price,
                 'qty' => $request->qty,
                 'discount' => $request->discount,
-                'discount_type' => $request->discount_type]);
+                'discount_type' => $request->discount_type,
+                'book_status' => $request->book_status
+            ]);
         }
 
         $book->standard()->sync($request->standard);
@@ -96,7 +106,8 @@ class BookControoler extends Controller
             'price' => 'required',
             'qty' => 'required',
             'discount' => 'required',
-            'discount_type' => 'required'
+            'discount_type' => 'required',
+            'book_status' => 'required'
         ]);
 
         $book = Book::find(decrypt($id));
@@ -105,7 +116,9 @@ class BookControoler extends Controller
             'price' => $request->price,
             'qty' => $request->qty,
             'discount' => $request->discount,
-            'discount_type' => $request->discount_type]);
+            'discount_type' => $request->discount_type,
+            'book_status' => $request->book_status
+        ]);
 
 
         $book->standard()->sync($request->standard);

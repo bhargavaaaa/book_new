@@ -42,9 +42,8 @@
                                         <label for="standard">
                                             Standard <span class="requride_cls">*</span>
                                         </label>
-                                        <select class="select2 select2bs4 form-control" id="standard" name="standard[]"
+                                        <select class="select2 select2bs4 form-control" style="width: 100%" id="standard" name="standard[]"
                                             multiple>
-                                            <option value="">Select</option>
                                             @foreach ($standard as $standard)
                                                 <option value="{{ $standard->id }}">{{ $standard->name }}</option>
                                             @endforeach
@@ -100,12 +99,28 @@
                                         <div class="radio">
                                             <label for="amount"><input type="radio" name="discount_type" id="amount"
                                                     value="0" checked>Amount</label>
-                                            <label for="percentage"><input type="radio" name="discount_type" id="percentage"
+                                            <label for="percentage" class="ml-2"><input type="radio" name="discount_type" id="percentage"
                                                     value="1">Percentage</label>
                                         </div>
                                         @if ($errors->has('discount_type'))
                                             <span
                                                 class="requride_cls"><strong>{{ $errors->first('discount_type') }}</strong></span>
+                                        @endif
+                                    </div>
+
+                                    <div class="col-md-5 mb-3 col-sm-12">
+                                        <label for="discount_type">
+                                            Book status <span class="requride_cls">*</span>
+                                        </label>
+                                        <div class="radio">
+                                            <label for="in_store"><input type="radio" name="book_status" id="in_store"
+                                                    value="1" checked>Available in store</label>
+                                            <label for="pending" class="ml-2"><input type="radio" name="book_status" id="pending"
+                                                    value="0">Yet to come</label>
+                                        </div>
+                                        @if ($errors->has('book_status'))
+                                            <span
+                                                class="requride_cls"><strong>{{ $errors->first('book_status') }}</strong></span>
                                         @endif
                                     </div>
                                 </div>
@@ -125,7 +140,10 @@
 @section('footer_script')
     <script>
         $(document).ready(() => {
-            $('select').select2();
+            $('select').select2({
+                placeholder: "Select a standard",
+                allowClear: true
+            });
         });
     </script>
 @endsection

@@ -75,6 +75,15 @@ Route::group(["middleware" => "auth"], function() {
         Route::get('/delete/{id}', [BookControoler::class, 'delete'])->name('book.delete');
     });
 
-        /** Bill make */
-        Route::get('make-bill', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice.index');
+    /** Bill make */
+    Route::get('bill-print', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice.index');
+    Route::post('bill-print', [App\Http\Controllers\InvoiceController::class, 'getBooksList'])->name('invoice.getBooksList');
+    Route::post('bill-print/mainBookSubmit', [App\Http\Controllers\InvoiceController::class, 'mainBookSubmit'])->name('invoice.mainBookSubmit');
+    Route::get('make-bill', [App\Http\Controllers\InvoiceController::class, 'make_bill'])->name('invoice.make_bill');
+    Route::get('store_invoice', [App\Http\Controllers\InvoiceController::class, 'store_invoice'])->name('invoice.store_invoice');
+
+    Route::get('all-bills', [App\Http\Controllers\BillController::class, 'index'])->name('bills.index');
+    Route::post('all-bills', [App\Http\Controllers\BillController::class, 'getData'])->name('bills.getData');
+    Route::post('all-bills/mark-paid', [App\Http\Controllers\BillController::class, 'mark_paid'])->name('bills.mark_paid');
+    Route::get('all-bills/delete/{id}', [App\Http\Controllers\BillController::class, 'delete'])->name('bills.delete');
 });

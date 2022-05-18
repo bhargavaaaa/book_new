@@ -41,4 +41,16 @@
             <i class="nav-icon fas fa-book"></i>
             <span>Books</span></a>
     </li>
+
+    <li class="nav-item @if(request()->segment(1) == "bill-print") active @endif">
+        <a class="nav-link" href="{{ route('invoice.index') }}">
+            <i class="nav-icon fa fa-files-o"></i>
+            <span>Make Bill</span></a>
+    </li>
+
+    <li class="nav-item @if(request()->segment(1) == "all-bills") active @endif">
+        <a class="nav-link" href="{{ route('bills.index') }}">
+            <i class="nav-icon fa fa-money-bill"></i>
+            <span>All Bills</span></a>
+    </li>
 </ul>
