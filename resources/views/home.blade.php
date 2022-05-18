@@ -11,7 +11,7 @@
     <!-- Content Row -->
     <div class="row">
 
-        <!-- Earnings (Monthly) Card Example -->
+        {{-- <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4" style="cursor: pointer;">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
@@ -80,6 +80,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div> --}}
+        <div class="card w-100 text-center">
+            <div class="card-body">
+                <h1>
+                    Welcome {{ auth()->user()->firstname.' '.auth()->user()->lastname }}
+                </h1>
             </div>
         </div>
     </div>

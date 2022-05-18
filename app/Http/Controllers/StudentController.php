@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\StudentExport;
 use App\Imports\StudentImport;
+use App\Models\Invoice;
 use App\Models\Standard;
 use App\Models\Student;
 use Excel;
@@ -41,10 +42,18 @@ class StudentController extends Controller
             return $action;
 
         })
+        ->addColumn('purchased_book', function($row) {
+            $invoice_id = Invoice::where('student_id', $row->id)->first();
+            if(empty($invoice_id)) {
+                return '<span class="badge badge-warning">Not purchased yet</span>';
+            } else {
+                return '<span class="badge badge-success">Purchased</span>';
+            }
+        })
         ->editColumn('standard', function($row) {
             return $row->standard->name ?? null;
         })
-        ->rawColumns(['action','standard'])
+        ->rawColumns(['action','standard', 'purchased_book'])
         ->addIndexColumn()
         ->make(true);
 

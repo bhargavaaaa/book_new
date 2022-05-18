@@ -18,23 +18,19 @@
     </div><!-- /.container-fluid -->
 </div>
 
-@if (count($errors) > 0)
-<div class="row">
-    <div class="col-md-8 col-md-offset-1">
-      <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-ban"></i> Error!</h4>
-          @foreach($errors->all() as $error)
-          {{ $error }} <br>
-          @endforeach
-      </div>
-    </div>
-</div>
-@endif
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                @if (count($errors) > 0)
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Error!</h4>
+                    @foreach($errors->all() as $error)
+                    {{ $error }} <br>
+                    @endforeach
+                </div>
+                @endif
                 @if (session()->has("details_success"))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {!! session()->get('details_success') !!}
@@ -98,6 +94,7 @@
                                     <th>Sr. No.</th>
                                     <th>Student</th>
                                     <th>Standard</th>
+                                    <th>Purchased book or not</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -146,6 +143,11 @@
             },
             {
                 data: 'standard',
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: 'purchased_book',
                 orderable: false,
                 searchable: false
             },

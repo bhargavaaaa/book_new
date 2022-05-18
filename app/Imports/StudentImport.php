@@ -18,15 +18,14 @@ class StudentImport implements ToModel , WithStartRow, WithValidation
         }
 
         if($standard != null) {
-            Student::updateOrCreate(['name' => trim($row[1])],['name' => trim($row[1]), 'standard_id' => $standard->id]);
+            Student::updateOrCreate(['name' => trim($row[1]), 'standard_id' => $standard->id],['name' => trim($row[1]), 'standard_id' => $standard->id]);
         } else {
-            Student::updateOrCreate(['name' => trim($row[1])],['name' => trim($row[1]), 'standard_id' => null]);
+            Student::updateOrCreate(['name' => trim($row[1]), 'standard_id' => null],['name' => trim($row[1]), 'standard_id' => null]);
         }
         // return new Student([
         //     'name'     => $row[1],
         //     'standard_id'    => $standard->id,
         // ]);
-
     }
 
     public function startRow(): int
