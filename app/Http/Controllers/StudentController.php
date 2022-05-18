@@ -41,7 +41,10 @@ class StudentController extends Controller
             return $action;
 
         })
-        ->rawColumns(['action'])
+        ->editColumn('standard', function($row) {
+            return $row->standard->name ?? null;
+        })
+        ->rawColumns(['action','standard'])
         ->addIndexColumn()
         ->make(true);
 

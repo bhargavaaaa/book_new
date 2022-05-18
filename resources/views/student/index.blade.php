@@ -18,7 +18,19 @@
     </div><!-- /.container-fluid -->
 </div>
 
-
+@if (count($errors) > 0)
+<div class="row">
+    <div class="col-md-8 col-md-offset-1">
+      <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-ban"></i> Error!</h4>
+          @foreach($errors->all() as $error)
+          {{ $error }} <br>
+          @endforeach
+      </div>
+    </div>
+</div>
+@endif
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -33,7 +45,7 @@
                 @endif
                 <div class="card">
                     <div class="card-header">
-                        <div>
+                        {{-- <div>
                             <form action="{{ route('student.import') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="file" name="file" class="e">
@@ -43,11 +55,39 @@
                                 @enderror
                                 <button class="btn btn-success">Import Student Data</button>
                             </form>
-                            <a class="btn btn-warning" href="{{ route('student.export') }}">Export Student Data</a>
-                        </div>
+                        </div> --}}
                         {{-- <h3 class="card-title">{{ $moduleName ?? '' }} Details</h3> --}}
-                        <div class="card-tools">
-                            <a href="{{ route('student.create') }}"><button class="btn btn-primary" style="float:right;"><i class="fa fa-plus"></i> New</button></a>
+                        <form action="{{ route('student.import') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Import Student Data</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="file" name="file" class="e">
+                                    <br>
+                                    @error('file')
+                                        <div>{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </form>
+
+                        <div class="card-tools" style="float: right;">
+                            <a href="{{ route('student.create') }}"><button class="btn btn-primary"><i class="fa fa-plus"></i> New</button></a>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Import Student Data</button>
+                            <a class="btn btn-warning" href="{{ route('student.export') }}">Export Student Data</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -83,6 +123,10 @@
 @section('footer_script')
 
 <script>
+
+    @error('file')
+        $('#exampleModal').modal('show');
+    @enderror
     // $.fn.dataTable.ext.errMode = 'throw';
     $("#datatable").DataTable({
         processing: true,
@@ -101,8 +145,9 @@
                 data: 'name',
             },
             {
-                data: 'standard.name',
-                name: 'name'
+                data: 'standard',
+                orderable: false,
+                searchable: false
             },
             {
                 data: 'action',
