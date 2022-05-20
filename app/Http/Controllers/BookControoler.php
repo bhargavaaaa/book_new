@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\BookExport;
+use App\Imports\BookImport;
 use App\Models\Book;
 use App\Models\Medium;
 use App\Models\Standard;
@@ -156,7 +157,7 @@ class BookControoler extends Controller
         $validate = $request->validate(['file' => 'required']);
         if($validate) {
 
-            Excel::import(new StudentImport,request()->file('file'));
+            Excel::import(new BookImport,request()->file('file'));
         }
 
         return redirect($this->route)->with("details_success", "Student Data Imported Successfully.");

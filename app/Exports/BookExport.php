@@ -36,7 +36,6 @@ class BookExport implements FromCollection, WithHeadings, WithMapping
         $medium = Medium::whereIn('id',$medium_ids)->pluck('name')->toArray();
 
         return [
-           $book->id,
            $book->name,
            implode(',',$standard),
            implode(',',$medium),
@@ -51,7 +50,6 @@ class BookExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            '#',
             'name',
             'standard',
             'medium',

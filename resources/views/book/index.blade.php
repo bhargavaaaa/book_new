@@ -44,7 +44,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <form action="{{ route('student.import') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('book.import') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
