@@ -84,6 +84,8 @@ Route::group(["middleware" => "auth"], function() {
         Route::get('/edit/{id}', [BookControoler::class, 'edit'])->name('book.edit');
         Route::post('/update/{id}', [BookControoler::class, 'update'])->name('book.update');
         Route::get('/delete/{id}', [BookControoler::class, 'delete'])->name('book.delete');
+        Route::post('/import' ,[BookControoler::class, 'import'])->name('book.import');
+        Route::get('/export' ,[BookControoler::class, 'export'])->name('book.export');
     });
 
     /** Bill make */

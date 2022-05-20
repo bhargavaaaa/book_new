@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BookExport;
 use App\Models\Book;
 use App\Models\Medium;
 use App\Models\Standard;
 use Illuminate\Http\Request;
+use Excel;
 use Illuminate\Support\Arr;
 
 class BookControoler extends Controller
@@ -147,5 +149,22 @@ class BookControoler extends Controller
             $book->delete();
         }
         return redirect($this->route)->with("details_success", "Book Deleted Successfully.");
+    }
+
+    public function import(Request $request)
+    {
+        $validate = $request->validate(['file' => 'required']);
+        if($validate) {
+
+            Excel::import(new StudentImport,request()->file('file'));
+        }
+
+        return redirect($this->route)->with("details_success", "Student Data Imported Successfully.");
+
+    }
+
+    public function export()
+    {
+        return Excel::download(new BookExport, 'books.xlsx');
     }
 }

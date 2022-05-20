@@ -60,8 +60,7 @@
                                         <label for="medium">
                                             Medium <span class="requride_cls">*</span>
                                         </label>
-                                        <select class="select2 select2bs4 form-control" style="width: 100%" id="medium" name="medium[]"
-                                            multiple>
+                                        <select class="select2 select2bs4 form-control" style="width: 100%" id="medium" name="medium[]" placeholder="ok" multiple>
                                             @foreach ($medium as $medium)
                                                 <option value="{{ $medium->id }}">{{ $medium->name }}</option>
                                             @endforeach
@@ -72,8 +71,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="row g-3">
+
                                     <div class="col-md-6 mb-3 col-sm-12">
                                         <label class="form-label">Book Price<span
                                                 class="requride_cls">*</span></label>
@@ -85,7 +83,8 @@
                                             </span>
                                         @enderror
                                     </div>
-
+                                </div>
+                                <div class="row g-3">
                                     <div class="col-md-6 mb-3 col-sm-12">
                                         <label class="form-label">Book Quantity<span
                                                 class="requride_cls">*</span></label>
@@ -97,8 +96,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="row g-3">
+
                                     <div class="col-md-6 mb-3 col-sm-12">
                                         <label class="form-label">Discount<span class="requride_cls">*</span></label>
                                         <input type="number" class="form-control" name="discount" id="discount"
@@ -109,8 +107,10 @@
                                             </span>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="row g-3">
 
-                                    <div class="col-md-5 mb-3 col-sm-12">
+                                    <div class="col-md-6 mb-3 col-sm-12">
                                         <label for="discount_type">
                                             Discount Type <span class="requride_cls">*</span>
                                         </label>
@@ -158,8 +158,12 @@
 @section('footer_script')
     <script>
         $(document).ready(() => {
-            $('select').select2({
+            $('#standard').select2({
                 placeholder: "Select a standard",
+                allowClear: true
+            });
+            $('#medium').select2({
+                placeholder: "Select a medium",
                 allowClear: true
             });
         });
