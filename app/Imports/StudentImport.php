@@ -13,14 +13,14 @@ class StudentImport implements ToModel , WithStartRow, WithValidation
 {
     public function model(array $row)
     {
-        if($row[2]) {
-            $standard = Standard::where('name','=',trim($row[2]))->first();
+        if($row[1]) {
+            $standard = Standard::where('name','=',trim($row[1]))->first();
         }
 
         if($standard != null) {
-            Student::updateOrCreate(['name' => trim($row[1]), 'standard_id' => $standard->id],['name' => trim($row[1]), 'standard_id' => $standard->id]);
+            Student::updateOrCreate(['name' => trim($row[0]), 'standard_id' => $standard->id],['name' => trim($row[0]), 'standard_id' => $standard->id]);
         } else {
-            Student::updateOrCreate(['name' => trim($row[1]), 'standard_id' => null],['name' => trim($row[1]), 'standard_id' => null]);
+            Student::updateOrCreate(['name' => trim($row[0]), 'standard_id' => null],['name' => trim($row[0]), 'standard_id' => null]);
         }
         // return new Student([
         //     'name'     => $row[1],
@@ -36,16 +36,16 @@ class StudentImport implements ToModel , WithStartRow, WithValidation
     public function rules(): array
     {
         return [
-            '1' => 'required',
-            '2' => 'required'
+            '0' => 'required',
+            '1' => 'required'
         ];
     }
 
     public function customValidationMessages()
     {
         return [
-            '1.required' => 'Student Name Is Required.',
-            '2.required' => 'Standard Is Required.',
+            '0.required' => 'Student Name Is Required.',
+            '1.required' => 'Standard Is Required.',
         ];
     }
 }

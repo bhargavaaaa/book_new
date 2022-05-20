@@ -38,6 +38,19 @@
                             <div class="card-body table-responsive">
                                 <div class="row g-3">
                                     <div class="col-md-6 mb-3 col-sm-12">
+                                        <label class="form-label">Medium</label>
+                                        <select class="form-control standard_change select2" name="medium" id="medium_select">    
+                                            @foreach ($medium as $mkey => $md)
+                                                <option value="{{ $md->id }}" @if($mkey == 0) selected @endif >{{ $md->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('medium')
+                                            <span class="error">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 mb-3 col-sm-12">
                                         <label class="form-label">Standard</label>
                                         <select class="form-control standard_change select2" name="standard" id="standard_select">    
                                             <option value="">-- Select standard --</option>
@@ -80,7 +93,8 @@
                         url: "{{ route('invoice.getBooksList') }}",
                         type: "POST",
                         data: {
-                            id: $th.val()
+                            id: $th.val(),
+                            medium: $('#medium_select').val(),
                         },
                         success: function(response) {
                             if (response) {

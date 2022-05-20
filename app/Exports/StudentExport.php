@@ -19,7 +19,6 @@ class StudentExport implements FromCollection , WithHeadings, WithMapping
 
     public function map($student) : array {
         return [
-           $student->id,
            $student->name,
            isset($student->standard->name) ? $student->standard->name : '',
         ] ;
@@ -28,7 +27,6 @@ class StudentExport implements FromCollection , WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            '#',
             'name',
             'standard',
         ];

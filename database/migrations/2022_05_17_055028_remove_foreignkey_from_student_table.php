@@ -14,7 +14,7 @@ class RemoveForeignkeyFromStudentTable extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->dropForeign('standard_id');
+            $table->dropForeign('students_standard_id_foreign');
             $table->dropColumn('standard_id');
         });
 
