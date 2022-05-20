@@ -36,6 +36,12 @@
             <span>Student</span></a>
     </li>
 
+     <li class="nav-item @if(request()->segment(1) == "medium") active @endif">
+        <a class="nav-link" href="{{ route('medium.index') }}">
+            <i class="nav-icon fas fa-users"></i>
+            <span>Medium</span></a>
+    </li>
+
     <li class="nav-item @if(request()->segment(1) == "book") active @endif">
         <a class="nav-link" href="{{ route('book.index') }}">
             <i class="nav-icon fas fa-book"></i>

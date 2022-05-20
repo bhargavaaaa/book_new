@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookControoler;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MediumController;
 use App\Http\Controllers\StandardController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,16 @@ Route::group(["middleware" => "auth"], function() {
         Route::get('/edit/{id}', [StandardController::class, 'edit'])->name('standard.edit');
         Route::post('/update/{id}', [StandardController::class, 'update'])->name('standard.update');
         // Route::get('/changeStatus/{id}', [StandardController::class, 'changeStatus'])->name('standard.changeStatus');
+    });
+
+    Route::prefix('medium')->group(function () {
+        Route::get('/', [MediumController::class, 'index'])->name('medium.index');
+        Route::get('/getData', [MediumController::class, 'getData'])->name('medium.getData');
+        Route::get('/create', [MediumController::class, 'create'])->name('medium.create');
+        Route::post('/store', [MediumController::class, 'store'])->name('medium.store');
+        Route::get('/delete/{id}', [MediumController::class, 'delete'])->name('medium.delete');
+        Route::get('/edit/{id}', [MediumController::class, 'edit'])->name('medium.edit');
+        Route::post('/update/{id}', [MediumController::class, 'update'])->name('medium.update');
     });
 
     // Route::prefix('category')->group(function () {

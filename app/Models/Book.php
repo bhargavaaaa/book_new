@@ -15,4 +15,9 @@ class Book extends Model
     {
         return $this->belongsToMany(Standard::class, 'book_standards')->withTimestamps();
     }
+
+    public function medium()
+    {
+        return $this->belongsToMany(Medium::class, 'book_media')->withTimestamps();
+    }
 }

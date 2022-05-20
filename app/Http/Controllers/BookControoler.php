@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Medium;
 use App\Models\Standard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -52,7 +53,8 @@ class BookControoler extends Controller
     {
         $moduleName = $this->moduleName;
         $standard = Standard::get();
-        return view($this->view . '/form', compact('moduleName','standard'));
+        $medium = Medium::get();
+        return view($this->view . '/form', compact('moduleName','standard','medium'));
     }
 
     public function store(Request $request)
@@ -60,6 +62,7 @@ class BookControoler extends Controller
         $validate = $request->validate([
             'name' => 'required',
             'standard' => 'required',
+            'medium' => 'required',
             'price' => 'required',
             'qty' => 'required',
             'discount' => 'required',
@@ -79,6 +82,7 @@ class BookControoler extends Controller
         }
 
         $book->standard()->sync($request->standard);
+        $book->medium()->sync($request->medium);
 
         return redirect($this->route)->with("details_success", "Book Added Successfully.");
 
@@ -88,6 +92,7 @@ class BookControoler extends Controller
     {
         $moduleName = $this->moduleName;
         $standards = Standard::get();
+        $mediums = Medium::get();
         $book = Book::with('standard')->find(decrypt($id));
 
         $standard_id = array();
@@ -95,7 +100,12 @@ class BookControoler extends Controller
             array_push($standard_id,$standard->id);
         }
 
-        return view($this->view . '/_form', compact('moduleName','standards','book','standard_id'));
+        $medium_id = array();
+        foreach($book->medium as $medium) {
+            array_push($medium_id,$medium->id);
+        }
+
+        return view($this->view . '/_form', compact('moduleName','standards','book','standard_id','mediums','medium_id'));
     }
 
     public function update(Request $request, $id)
@@ -103,6 +113,7 @@ class BookControoler extends Controller
         $validate = $request->validate([
             'name' => 'required',
             'standard' => 'required',
+            'medium' => 'required',
             'price' => 'required',
             'qty' => 'required',
             'discount' => 'required',
@@ -122,6 +133,7 @@ class BookControoler extends Controller
 
 
         $book->standard()->sync($request->standard);
+        $book->medium()->sync($request->medium);
 
         return redirect($this->route)->with("details_success", "Book Update Successfully.");
     }
