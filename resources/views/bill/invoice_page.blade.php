@@ -35,7 +35,7 @@
                                 <tr>
                                     <td style="padding: 0;">
                                         <a href="#" style="color: #348eda;" target="_blank">
-                                            <img src="{{ asset('public/images/logo.jpg') }}" alt="Bootdey.com"
+                                            <img src="{{ asset('public/images/logo1.jpg') }}" alt="Bootdey.com"
                                                 style="height: 100px; max-width: 100%; width: 157px;" height="50"
                                                 width="157" />
                                         </a>
