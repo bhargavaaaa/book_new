@@ -12,13 +12,15 @@
     <div class="row">
 
           <!-- Earnings (Monthly) Card Example -->
-          <div class="col-xl-3 col-md-6 mb-4" style="cursor: pointer;">
+        <div class="col-xl-3 col-md-6 mb-4" style="cursor: pointer;">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total available Books</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $books }}</div>
+                            <a href="{{ route('book.index') }}" style="text-decoration: none">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total available Books</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $books }}</div>
+                            </a>
                         </div>
                         <div class="col-auto">
                             <i class="nav-icon fas fa-book fa-2x text-gray-300"></i>
@@ -34,8 +36,10 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Students</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $students }}</div>
+                            <a href="{{ route('student.index') }}" style="text-decoration: none">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Students</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $students }}</div>
+                            </a>
                         </div>
                         <div class="col-auto">
                             <i class="nav-icon fas fa-users fa-2x text-gray-300"></i>
@@ -51,12 +55,14 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Orders</div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $orders }}</div>
+                            <a href="{{ route('invoice.index') }}" style="text-decoration: none">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Orders</div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $orders }}</div>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -72,8 +78,10 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Revenue</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">₹ {{ $revenue }}</div>
+                            <a href="{{ route('bills.index') }}" style="text-decoration: none">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Revenue</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">₹ {{ number_format($revenue,2) }}</div>
+                            </a>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-wallet fa-2x text-gray-300"></i>
