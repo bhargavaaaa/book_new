@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Invoice;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +13,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $books = Book::get()->count();
+        $students = Student::get()->count();
+        $orders = Invoice::get()->count();
+        $revenue = Invoice::get()->sum('amount_total');
+        return view('home',compact('books','revenue','orders','students'));
     }
 
     public function profile()
