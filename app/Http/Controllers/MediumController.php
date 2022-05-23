@@ -29,11 +29,15 @@ class MediumController extends Controller
 
             $action .= "<a href='" . $editUrl . "' class='btn btn-warning btn-xs'><i class='fas fa-pencil-alt'></i> Edit</a>";
             $action .= " <a id='delete' href='". $deleteUrl ."' class='btn btn-danger btn-xs delete'><i class='fa fa-trash'></i> Delete</a>";
-            
+
             return $action;
 
         })
-        ->rawColumns(['action'])
+        ->addColumn('checkBox', function ($row) {
+            $checkBox = "<input type='checkbox' class='form-check checkBox' value='" . encrypt($row->id) . "' />";
+            return $checkBox;
+        })
+        ->rawColumns(['action','checkBox'])
         ->addIndexColumn()
         ->make(true);
 
@@ -92,4 +96,15 @@ class MediumController extends Controller
         return redirect($this->route)->with("details_success", "Medium Deleted Successfully.");
     }
 
+    public function bulkDelete(Request $request)
+    {
+        foreach ($request->medium as $item) {
+            $medium = Medium::find(decrypt($item));
+            $medium->delete();
+        }
+
+        return response()->json([
+            'status' => true
+        ]);
+    }
 }

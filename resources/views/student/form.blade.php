@@ -56,6 +56,24 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6 mb-3 col-sm-12">
+                                        <label for="medium">
+                                            Medium <span class="requride_cls">*</span>
+                                        </label>
+                                        <select class="select2 select2bs4 form-control" id="medium" name="medium">
+                                            <option value="">Select</option>
+                                            @foreach ($medium as $medium)
+                                                <option value="{{ $medium->id }}">{{ $medium->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('medium')
+                                            <span class="error">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <center>

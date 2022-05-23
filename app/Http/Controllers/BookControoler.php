@@ -45,7 +45,11 @@ class BookControoler extends Controller
                 return "Yet to come";
             }
         })
-        ->rawColumns(['action', 'book_status'])
+        ->addColumn('checkBox', function ($row) {
+            $checkBox = "<input type='checkbox' class='form-check checkBox' value='" . encrypt($row->id) . "' />";
+            return $checkBox;
+        })
+        ->rawColumns(['action', 'book_status','checkBox'])
         ->addIndexColumn()
         ->make(true);
 
@@ -167,5 +171,17 @@ class BookControoler extends Controller
     public function export()
     {
         return Excel::download(new BookExport, 'books.xlsx');
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        foreach ($request->book as $item) {
+            $book = Book::find(decrypt($item));
+            $book->delete();
+        }
+
+        return response()->json([
+            'status' => true
+        ]);
     }
 }

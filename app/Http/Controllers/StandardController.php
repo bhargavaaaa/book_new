@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Standard;
 use finfo;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 
 class StandardController extends Controller
 {
@@ -38,7 +39,11 @@ class StandardController extends Controller
             return $action;
 
         })
-        ->rawColumns(['action'])
+        ->addColumn('checkBox', function ($row) {
+            $checkBox = "<input type='checkbox' class='form-check checkBox' value='" . encrypt($row->id) . "' />";
+            return $checkBox;
+        })
+        ->rawColumns(['action','checkBox'])
         ->addIndexColumn()
         ->make(true);
 
@@ -108,5 +113,17 @@ class StandardController extends Controller
             $standard->update(['is_active' => 0]);
             return redirect($this->route)->with("details_success", "Standard InActivate Successfully.");
         }
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        foreach ($request->standard as $item) {
+            $standard = Standard::find(decrypt($item));
+            $standard->delete();
+        }
+
+        return response()->json([
+            'status' => true
+        ]);
     }
 }

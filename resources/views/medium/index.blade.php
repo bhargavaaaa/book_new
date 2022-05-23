@@ -34,8 +34,9 @@
                 <div class="card">
                     <div class="card-header">
                         {{-- <h3 class="card-title">{{ $moduleName ?? '' }} Details</h3> --}}
-                        <div class="card-tools">
-                            <a href="{{ route('medium.create') }}"><button class="btn btn-primary" style="float:right;"><i class="fa fa-plus"></i> New</button></a>
+                        <div class="card-tools" style="float:right;">
+                            <a href="{{ route('medium.create') }}"><button class="btn btn-primary"><i class="fa fa-plus"></i> New</button></a>
+                            <a id="bulkDelete" class="btn btn-danger" ><i class="fa fa-trash"></i> Delete</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -43,6 +44,7 @@
                         <table id="datatable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th><input type="checkbox" id="selectAll"></th>
                                     <th>Sr. No.</th>
                                     <th>Medium</th>
                                     <th>Action</th>
@@ -81,6 +83,11 @@
                 "type": "GET",
             },
             columns: [{
+                    data: 'checkBox',
+                    orderable: false,
+                    searchable: false
+                },
+                {
                     data: 'DT_RowIndex',
                     orderable: false,
                     searchable: false
@@ -95,7 +102,7 @@
                 },
             ],
         });
-    
+
         $(document).on('click', '.delete', function(e) {
             e.preventDefault();
             var linkURL = $(this).attr("href");
@@ -114,6 +121,45 @@
                 }
             });
         });
+
+        $(document).on('click', '#bulkDelete', function(){
+        let medium = [];
+        $('input.checkBox:checked').each(function(){
+            medium.push($(this).val());
+        });
+
+        Swal.fire({
+            title: 'Are you sure want to Delete?',
+            text: "As that can't be undone.",
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+            }).then((result)=>{
+            if(result.value){
+                $.ajax({
+                type: "POST",
+                url: "{{ route('medium.bulkDelete') }}",
+                data: {
+                    'medium':medium,
+                    '_token':"{{ csrf_token() }}",
+                },
+                dataType: "json",
+                success: function (response) {
+                    if(response.status){
+                    location.reload();
+                    }
+                }
+                });
+            }
+            })
+        });
+
+        $(document).on('change', '#selectAll', function(){
+            $('input.checkBox:checkbox').not(this).prop('checked', this.checked);
+        })
     });
 </script>
 

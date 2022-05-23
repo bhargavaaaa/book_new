@@ -41,6 +41,7 @@ Route::group(["middleware" => "auth"], function() {
         Route::get('/delete/{id}', [StandardController::class, 'delete'])->name('standard.delete');
         Route::get('/edit/{id}', [StandardController::class, 'edit'])->name('standard.edit');
         Route::post('/update/{id}', [StandardController::class, 'update'])->name('standard.update');
+        Route::post('/bulkDelete', [StandardController::class, 'bulkDelete'])->name('standard.bulkDelete');
         // Route::get('/changeStatus/{id}', [StandardController::class, 'changeStatus'])->name('standard.changeStatus');
     });
 
@@ -52,6 +53,7 @@ Route::group(["middleware" => "auth"], function() {
         Route::get('/delete/{id}', [MediumController::class, 'delete'])->name('medium.delete');
         Route::get('/edit/{id}', [MediumController::class, 'edit'])->name('medium.edit');
         Route::post('/update/{id}', [MediumController::class, 'update'])->name('medium.update');
+        Route::post('/bulkDelete', [MediumController::class, 'bulkDelete'])->name('medium.bulkDelete');
     });
 
     // Route::prefix('category')->group(function () {
@@ -73,6 +75,7 @@ Route::group(["middleware" => "auth"], function() {
         Route::get('/delete/{id}', [StudentController::class, 'delete'])->name('student.delete');
         Route::post('/import' ,[StudentController::class, 'import'])->name('student.import');
         Route::get('/export' ,[StudentController::class, 'export'])->name('student.export');
+        Route::post('/bulkDelete', [StudentController::class, 'bulkDelete'])->name('student.bulkDelete');
         // Route::get('/changeStatus/{id}', [StudentController::class, 'changeStatus'])->name('student.changeStatus');
     });
 
@@ -86,6 +89,7 @@ Route::group(["middleware" => "auth"], function() {
         Route::get('/delete/{id}', [BookControoler::class, 'delete'])->name('book.delete');
         Route::post('/import' ,[BookControoler::class, 'import'])->name('book.import');
         Route::get('/export' ,[BookControoler::class, 'export'])->name('book.export');
+        Route::post('/bulkDelete', [BookControoler::class, 'bulkDelete'])->name('book.bulkDelete');
     });
 
     /** Bill make */
@@ -94,6 +98,7 @@ Route::group(["middleware" => "auth"], function() {
     Route::post('bill-print/mainBookSubmit', [App\Http\Controllers\InvoiceController::class, 'mainBookSubmit'])->name('invoice.mainBookSubmit');
     Route::get('make-bill', [App\Http\Controllers\InvoiceController::class, 'make_bill'])->name('invoice.make_bill');
     Route::get('store_invoice', [App\Http\Controllers\InvoiceController::class, 'store_invoice'])->name('invoice.store_invoice');
+    Route::post('/bulkDelete', [App\Http\Controllers\InvoiceController::class, 'bulkDelete'])->name('invoice.bulkDelete');
 
     Route::get('all-bills', [App\Http\Controllers\BillController::class, 'index'])->name('bills.index');
     Route::post('all-bills', [App\Http\Controllers\BillController::class, 'getData'])->name('bills.getData');

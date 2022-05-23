@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\StudentExport;
 use App\Imports\StudentImport;
 use App\Models\Invoice;
+use App\Models\Medium;
 use App\Models\Standard;
 use App\Models\Student;
 use Excel;
@@ -50,10 +51,14 @@ class StudentController extends Controller
                 return '<span class="badge badge-success">Purchased</span>';
             }
         })
+        ->addColumn('checkBox', function ($row) {
+            $checkBox = "<input type='checkbox' class='form-check checkBox' value='" . encrypt($row->id) . "' />";
+            return $checkBox;
+        })
         ->editColumn('standard', function($row) {
             return $row->standard->name ?? null;
         })
-        ->rawColumns(['action','standard', 'purchased_book'])
+        ->rawColumns(['action','standard', 'purchased_book','checkBox'])
         ->addIndexColumn()
         ->make(true);
 
@@ -64,18 +69,20 @@ class StudentController extends Controller
     {
         $moduleName = $this->moduleName;
         $standard = Standard::active()->get();
-        return view($this->view . '/form', compact('moduleName','standard'));
+        $medium = Medium::get();
+        return view($this->view . '/form', compact('moduleName','standard','medium'));
     }
 
     public function store(Request $request)
     {
         $validate = $request->validate([
             'name' => 'required',
-            'standard' => 'required'
+            'standard' => 'required',
+            'medium' => 'required'
         ]);
 
         if($validate) {
-            Student::create(['name' => $request->name, 'standard_id' => $request->standard]);
+            Student::create(['name' => $request->name, 'standard_id' => $request->standard, 'medium_id' => $request->medium]);
         }
 
         return redirect($this->route)->with("details_success", "Student Added Successfully.");
@@ -86,19 +93,21 @@ class StudentController extends Controller
     {
         $moduleName = $this->moduleName;
         $standard = Standard::active()->get();
+        $medium = Medium::get();
         $student = Student::with('standard')->find(decrypt($id));
-        return view($this->view . '/_form', compact('moduleName','standard','student'));
+        return view($this->view . '/_form', compact('moduleName','standard','student','medium'));
     }
 
     public function update(Request $request, $id)
     {
         $validate = $request->validate([
             'name' => 'required',
-            'standard' => 'required'
+            'standard' => 'required',
+            'medium' => 'required'
         ]);
 
         $student = Student::find(decrypt($id));
-        $student->update(['name' => $request->name, 'standard_id' => $request->standard]);
+        $student->update(['name' => $request->name, 'standard_id' => $request->standard, 'medium_id' => $request->medium]);
 
         return redirect($this->route)->with("details_success", "Student Update Successfully.");
     }
@@ -141,5 +150,17 @@ class StudentController extends Controller
             $student->update(['is_active' => 0]);
             return redirect($this->route)->with("details_success", "Student InActivate Successfully.");
         }
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        foreach ($request->student as $item) {
+            $student = Student::find(decrypt($item));
+            $student->delete();
+        }
+
+        return response()->json([
+            'status' => true
+        ]);
     }
 }

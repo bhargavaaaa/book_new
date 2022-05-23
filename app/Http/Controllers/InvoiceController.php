@@ -60,7 +60,7 @@ class InvoiceController extends Controller
 
         return redirect()->route('invoice.make_bill');
     }
-    
+
     public function make_bill()
     {
         if(!session()->has('book_ids')) {
@@ -133,5 +133,17 @@ class InvoiceController extends Controller
         ]);
 
         return true;
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        foreach ($request->invoice as $item) {
+            $invoice = Invoice::find(decrypt($item));
+            $invoice->delete();
+        }
+
+        return response()->json([
+            'status' => true
+        ]);
     }
 }

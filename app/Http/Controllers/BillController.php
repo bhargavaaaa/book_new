@@ -49,7 +49,11 @@ class BillController extends Controller
         ->editColumn('created_at', function($row) {
             return date('d-M-Y h:i:s A', strtotime($row->created_at));
         })
-        ->rawColumns(['action', 'payment_status', 'total_quantity', 'created_at'])
+        ->addColumn('checkBox', function ($row) {
+            $checkBox = "<input type='checkbox' class='form-check checkBox' value='" . encrypt($row->id) . "' />";
+            return $checkBox;
+        })
+        ->rawColumns(['action', 'payment_status', 'total_quantity', 'created_at','checkBox'])
         ->addIndexColumn()
         ->make(true);
 

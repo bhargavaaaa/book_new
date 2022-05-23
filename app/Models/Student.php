@@ -19,4 +19,9 @@ class Student extends Model
     {
         return $this->belongsTo(standard::class);
     }
+
+    public function medium()
+    {
+        return $this->belongsTo(Medium::class);
+    }
 }

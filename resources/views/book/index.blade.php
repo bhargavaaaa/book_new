@@ -80,6 +80,7 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal"
                                     data-target="#exampleModal">Import Books Data</button>
                                 <a class="btn btn-warning" href="{{ route('book.export') }}">Export Books Data</a>
+                            <a id="bulkDelete" class="btn btn-danger" ><i class="fa fa-trash"></i> Delete</a>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -87,6 +88,7 @@
                             <table id="datatable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th><input type="checkbox" id="selectAll"></th>
                                         <th>Sr. No.</th>
                                         <th>Book Name</th>
                                         <th>Price</th>
@@ -128,6 +130,11 @@
                 "type": "GET",
             },
             columns: [{
+                    data: 'checkBox',
+                    orderable: false,
+                    searchable: false
+                },
+                {
                     data: 'DT_RowIndex',
                     orderable: false,
                     searchable: false
@@ -189,5 +196,43 @@
         //         }
         //     });
         // });
+        $(document).on('click', '#bulkDelete', function(){
+        let book = [];
+        $('input.checkBox:checked').each(function(){
+            book.push($(this).val());
+        });
+
+        Swal.fire({
+            title: 'Are you sure want to Delete?',
+            text: "As that can't be undone.",
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+            }).then((result)=>{
+            if(result.value){
+                $.ajax({
+                type: "POST",
+                url: "{{ route('book.bulkDelete') }}",
+                data: {
+                    'book':book,
+                    '_token':"{{ csrf_token() }}",
+                },
+                dataType: "json",
+                success: function (response) {
+                    if(response.status){
+                    location.reload();
+                    }
+                }
+                });
+            }
+            })
+        });
+
+        $(document).on('change', '#selectAll', function(){
+            $('input.checkBox:checkbox').not(this).prop('checked', this.checked);
+        })
     </script>
 @endsection
