@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Book;
+use App\Models\Medium;
 use App\Models\Standard;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -17,14 +18,22 @@ class BookImport implements ToModel, WithStartRow
             $standard_id = Standard::whereIn('name',$standard)->pluck('id')->toArray();
         }
 
+        $medium = explode(",",trim($row[2]));
+        if(!empty($medium)){
+            $medium_id = Medium::whereIn('name',$medium)->pluck('id')->toArray();
+        }
+
         $book = Book::create([
             'name' => trim($row[0]),
             'price' => trim($row[3]),
             'qty' => trim($row[4]),
             'discount' => trim($row[5]),
             'discount_type' => (trim($row[6]) == "fixed" ||  trim($row[6]) == "Fixed") ? 0 : 1,
-            'book_status' => (trim($row[6]) == "available" ||  trim($row[6]) == "Available") ? 1 : 0,
+            'book_status' => (trim($row[7]) == "available" ||  trim($row[7]) == "Available") ? 1 : 0,
         ]);
+
+        $book->standard()->sync($standard_id);
+        $book->medium()->sync($medium_id);
         // return new Book([
         //     //
         // ]);

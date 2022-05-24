@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Medium;
 use App\Models\Standard;
 use App\Models\Student;
 use Illuminate\Support\Collection;
@@ -17,10 +18,14 @@ class StudentImport implements ToModel , WithStartRow, WithValidation
             $standard = Standard::where('name','=',trim($row[1]))->first();
         }
 
+        if($row[2]) {
+            $medium = Medium::where('name','=',trim($row[2]))->first();
+        }
+
         if($standard != null) {
-            Student::updateOrCreate(['name' => trim($row[0]), 'standard_id' => $standard->id],['name' => trim($row[0]), 'standard_id' => $standard->id]);
+            Student::updateOrCreate(['name' => trim($row[0]), 'standard_id' => $standard->id],['name' => trim($row[0]), 'standard_id' => $standard->id, 'medium_id' => $medium->id]);
         } else {
-            Student::updateOrCreate(['name' => trim($row[0]), 'standard_id' => null],['name' => trim($row[0]), 'standard_id' => null]);
+            Student::updateOrCreate(['name' => trim($row[0]), 'standard_id' => null],['name' => trim($row[0]), 'standard_id' => null, 'medium_id' => null]);
         }
         // return new Student([
         //     'name'     => $row[1],

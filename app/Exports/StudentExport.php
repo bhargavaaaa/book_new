@@ -21,6 +21,7 @@ class StudentExport implements FromCollection , WithHeadings, WithMapping
         return [
            $student->name,
            isset($student->standard->name) ? $student->standard->name : '',
+           isset($student->medium->name) ? $student->medium->name : '',
         ] ;
     }
 
@@ -29,6 +30,7 @@ class StudentExport implements FromCollection , WithHeadings, WithMapping
         return [
             'name',
             'standard',
+            'medium'
         ];
     }
 }

@@ -150,6 +150,7 @@ class BookControoler extends Controller
         $id = decrypt($id);
         $book = Book::find($id);
         $book->standard()->sync([]);
+        $book->medium()->sync([]);
         if($book){
             $book->delete();
         }
@@ -177,6 +178,8 @@ class BookControoler extends Controller
     {
         foreach ($request->book as $item) {
             $book = Book::find(decrypt($item));
+            $book->standard()->sync([]);
+            $book->medium()->sync([]);
             $book->delete();
         }
 
